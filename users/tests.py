@@ -32,6 +32,3 @@ class SigninTest(TestCase):
         self.assertTrue(response.status_code == 200)
         response = self.client.post('/users/', {'id_phone': '+79876543210', 'id_password': 'Qwerty12#'})
         self.assertTrue(response.status_code == 200)
-from django.test import TestCase
-
-# Create your tests here.
