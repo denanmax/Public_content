@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="border-bottom">
+            <h1 class="h2">Публикации</h1>
+        </div>
+
+        <div class="table-responsive small">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Статус</th>
+                    <th scope="col">id</th>
+                    <th scope="col">Заголовок</th>
+                    <th scope="col">Опубликовал</th>
+                    <th scope="col">Оплата</th>
+                    <th scope="col">Просмотры</th>
+                    <th scope="col">Создано</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        {% if object.paid_published and object.owner != user and user.is_authenticated %}
+                            {% for sub in sub_read_list.all %}
+                                {% if object == sub %}
+                                    <td><a class="btn btn-success" href="{% url 'posts:posts_detail' object.pk %}"
+                                           role="button">Просмотр</a>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                            {% for sub in sub_pay_list.all %}
+                                {% if object == sub %}
+                                    <td><a class="btn btn-primary"
+                                           href="{% url 'posts:pay_posts_redirect' object.pk %}"
+                                           role="button">Оплатить</a>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                            {% for sub in sub_pay_open_list.all %}
+                                {% if object == sub %}
+                                    <td><a class="btn btn-primary"
+                                           href="{% url 'posts:pay_posts_redirect' object.pk %}"
+                                           role="button">Оплатить</a>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                        {% elif object.paid_published and user.is_anonymous %}
+                            <td><a class="btn btn-primary"
+                                   href="{% url 'posts:pay_posts_redirect' object.pk %}"
+                                   role="button">Оплатить</a>
+                            </td>
+                        {% else %}
+                            <td><a class="btn btn-success" href="{% url 'posts:posts_detail' object.pk %}"
+                                   role="button">Просмотр</a>
+                            </td>
+                        {% endif %}
+                        <td>{{ object.pk }}</td>
+                        <td>{{ object.title|truncatechars:25 }}</td>
+                        <td>{{ object.owner.first_name }} {{ object.owner.last_name }}</td>
+                        <td>
+                            {% if object.paid_published %}
+                                <span class="badge text-bg-info">Ценна: {{ object.cost }}₽</span>
+                            {% else %}
+                                <span class="badge text-bg-success">Бесплатно</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ object.count_views }}</td>
+                        <td>{{ object.create_date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+{% endblock %}
