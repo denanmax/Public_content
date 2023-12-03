@@ -1,11 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 from django.views.generic import ListView
 
 from subscriptions.models import Subscriptions
 
 
-# Create your views here.
 class SubscriptionsListView(LoginRequiredMixin, ListView):
     """Список купленных подписок и оплата"""
     model = Subscriptions
