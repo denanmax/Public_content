@@ -9,29 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from users.forms import UserRegisterForm, UserProfileForm, UserLoginForm
 from users.models import User
-
-
-class RegisterView(CreateView):
-    """Регистрация"""
-    model = User
-    form_class = UserRegisterForm
-    template_name = 'users/register.html'
-    success_url = reverse_lazy('users:login')
-    extra_context = {
-        'title': 'Регистрация'
-    }
-
-    def form_valid(self, form):
-        if form.is_valid():
-            self.object = form.save()
-            self.object.is_active = True
-            self.object.save()
-            return super().form_valid(form)
-
-    def get_success_url(self):
-        messages.add_message(self.request, messages.INFO,
-                             f'Пользователь {self.object.phone} создан.')
-        return reverse_lazy('users:login')
+from posts.models import Posts
 
 
 class CustomLoginView(FormView):
@@ -67,6 +45,28 @@ class CustomLoginView(FormView):
                 messages.add_message(self.request, messages.WARNING, f'Неправильный номер телефона или пароль {err}')
         return render(
             self.request, 'users/login.html', context={'form': form})
+
+class RegisterView(CreateView):
+    """Контроллер регистрации пользователя"""
+    model = User
+    form_class = UserRegisterForm
+    template_name = 'users/register.html'
+    success_url = reverse_lazy('users:login')
+    extra_context = {
+        'title': 'Регистрация'
+    }
+
+    def form_valid(self, form):
+        if form.is_valid():
+            self.object = form.save()
+            self.object.is_active = True
+            self.object.save()
+            return super().form_valid(form)
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.INFO,
+                             f'Пользователь с телефонным номером {self.object.phone} создан.')
+        return reverse_lazy('users:login')
 
 
 class ProfileView(UpdateView):
