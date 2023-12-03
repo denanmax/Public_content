@@ -16,7 +16,11 @@ _**.env_sample примеры необходимых данных
 .env должен быть заполнен после клонирования проекта**_.
 
 `git clone https://github.com/denanmax/Public_content`
+
 `cd Public_content`
+
 `poetry install`
+
 `docker-compose build`
+
 `docker-compose up`
