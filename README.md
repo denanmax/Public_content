@@ -19,8 +19,6 @@ _**.env_sample примеры необходимых данных
 
 `cd Public_content`
 
-`poetry install`
+`(sudo)docker-compose build`
 
-`docker-compose build`
-
-`docker-compose up`
+`(sudo)docker-compose up`
