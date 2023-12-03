@@ -9,7 +9,7 @@
                         <img src="{{ object.image.url }}" class="d-block mx-lg-auto img-fluid"
                              loading="lazy" width="700" height="500">
                     {% else %}
-                        <img src="{% static 'not_image.png' %}" class="d-block mx-lg-auto img-fluid"
+                        <img src="{% static 'no_image.png' %}" class="d-block mx-lg-auto img-fluid"
                              loading="lazy" width="700" height="500">
                     {% endif %}
                 </div>
@@ -17,7 +17,7 @@
                     <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">{{ object.title }}</h1>
                     <div class="mb-1 text-body-secondary">
                         Дата: {{ object.create_date }}
-                        <img class="icon" width="20" height="20" src="{% static 'view.png' %}">
+                        Просмотры:
                         {{ object.count_views }}
                     </div>
                     <p class="lead text-wrap">{{ object.content }}</p>
