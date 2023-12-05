@@ -46,6 +46,7 @@ class CustomLoginView(FormView):
         return render(
             self.request, 'users/login.html', context={'form': form})
 
+
 class RegisterView(CreateView):
     """Контроллер регистрации пользователя"""
     model = User

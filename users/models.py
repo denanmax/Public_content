@@ -10,6 +10,7 @@ phone_validator = RegexValidator(
     "Указанный номер не подходит по формату +7хххххххххх"
 )
 
+
 class User(AbstractUser):
     username = None
     email = None

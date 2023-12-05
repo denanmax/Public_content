@@ -7,7 +7,7 @@ from users.models import User
 class SigninTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(phone='+79876543210', first_name='user', last_name='test')
-        self.user.set_password('Qwe123!')
+        self.user.set_password('Qwerty12#')
         self.user.save()
 
     def tearDown(self):
